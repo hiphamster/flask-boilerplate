@@ -1,29 +1,34 @@
-from app import db
 from flask_login import UserMixin
-from werkzeug.security import check_password_hash
-from .defaults import Defaults
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
+from werkzeug.security import check_password_hash, generate_password_hash
 
+from .BaseModel import BaseModel
 
-class User(db.Model, Defaults, UserMixin):
+# from app import db
+# from datetime import datetime
+
+class User(BaseModel, UserMixin):
 
     __tablename__ = 'users'
 
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(255), unique=False, nullable=False)
-    email_verified_at = db.Column(db.DateTime, unique=False, nullable=True)
+    name: Mapped[str] = mapped_column(String(80), unique=False, nullable=False)
+    email: Mapped[str]  = mapped_column(String(120), unique=True, nullable=False)
+    password_hash: Mapped[str] = mapped_column(String(255), unique=False, nullable=False)
+    # email_verified_at: Mapped[datetime] = mapped_column(DateTime, unique=False, nullable=True)
+
+    @property
+    def password(self):
+        raise AttributeError('Password is not a readable property')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password, salt_length=10)
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
-
-    def send_password_reset_email(self):
-        from app.jobs.MailJob import send_mail_job
-        message_data = {
-            'subject': 'Reset Password',
-            'body': 'This email was sent asynchronously using Celery.',
-            'recipients': self.email,
-        }
-        send_mail_job.apply_async(args=[message_data])
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self) -> str:
         return '<User %r>' % self.name
+
+
