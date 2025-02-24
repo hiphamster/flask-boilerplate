@@ -1,7 +1,11 @@
-from sqlalchemy import String, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column
+from typing import List
 
-from .BaseModel import BaseModel
+from sqlalchemy import Computed, String, UniqueConstraint, func, select
+# from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+# from .BaseModel import BaseModel
+from app.models import BaseModel
 
 
 class Contact(BaseModel):
@@ -12,19 +16,29 @@ class Contact(BaseModel):
 
     last_name: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    email: Mapped[str] = mapped_column(String(100))
+    full_name: Mapped[str] = mapped_column(String(101), Computed(
+        func.concat(first_name, ' ', last_name), persisted=False), nullable=True)
 
-    mobile_phone: Mapped[str] = mapped_column(String(15))
+    email: Mapped[str] = mapped_column(String(100), nullable=True)
 
-    street: Mapped[str] = mapped_column(String(255))
+    mobile_phone: Mapped[str] = mapped_column(String(15), nullable=True)
 
-    city: Mapped[str] = mapped_column(String(50))
+    street: Mapped[str] = mapped_column(String(255), nullable=True)
 
-    state: Mapped[str] = mapped_column(String(2))
+    city: Mapped[str] = mapped_column(String(50), nullable=True)
 
-    zipcode: Mapped[str] = mapped_column(String(5))
+    state: Mapped[str] = mapped_column(String(2), nullable=True)
 
-    personal_facebook_url: Mapped[str] = mapped_column(String(255))
+    zipcode: Mapped[str] = mapped_column(String(5), nullable=True)
+
+    personal_facebook_url: Mapped[str] = mapped_column(String(255), nullable=True)
+
+    # bidirectional relationship
+    orders: Mapped[List["Order"]] = relationship(back_populates="contact")
+
+    @property
+    def order_count(self):
+        return len(self.orders) if self.orders else 0
 
     __table_args__ = (UniqueConstraint('first_name', 'last_name', 'mobile_phone',
                                        name='fname_lname_mphone'), )

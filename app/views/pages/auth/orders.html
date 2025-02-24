@@ -1,0 +1,163 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+    <div id="wrapper" style="border-top-style: solid;border-top-color: var(--bs-black);">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;margin-top: 100px;">
+                    <div class="row mb-2">
+                        <div class="col-xl-12 mb-2">
+                            <div class="input-group"><input class="form-control" type="text" placeholder="Search for..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                  <div class="d-flex justify-content-between" aria-controls="">
+                                    <div class="text-end d-inline-flex" aria-controls="">
+                                      <span class="text-primary m-0 fw-bold">Orders</span>
+                                    </div>
+                                      <div class="text-end d-inline-flex" aria-controls="">
+                                        <a class="btn btn-primary btn-sm" role="button" href="contact_form.html">New order</a>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+                                  {#
+                                    <div class="d-flex justify-content-between" aria-controls="">
+                                        <div class="text-end d-inline-flex" aria-controls=""></div>
+                                        <div class="text-end d-inline-flex" aria-controls=""></div>
+                                    </div>
+                                   #}
+
+                                   {% for order in instances %}
+
+                                  <div class="card shadow border-left-primary py-2 mb-2">
+                                      <div class="card-body d-flex flex-column">
+                                          <div class="d-flex align-items-center">
+                                              <div class="me-auto">
+                                                <p class="fw-bold h5 mb-0" style="color:var(--bs-secondary);">{{order.order_date.strftime('%m-%d-%Y')}}</p>
+                                              </div>
+                                              <div>
+                                                <p class="fw-bold text-warning h5 mb-0">{{order.contact.full_name}}</p>
+                                              </div>
+                                          </div>
+                                          <div>
+                                              <hr class="my-1">
+                                          </div>
+                                          <div class="d-flex align-items-center">
+                                              <div class="text-end me-auto"><i class="fas fa-shopping-cart fa-2x text-gray-300"></i></div>
+                                              <div>
+                                                <p class="text-end text-primary mb-0">{{order.contact.street ~ ' ' ~ order.contact.city}}</p>
+                                                <p class="text-end text-primary mb-1">{{order.contact.mobile_phone | phone_format}}</p>
+                                              </div>
+                                          </div>
+                                          <div>
+                                              <hr class="my-1">
+                                          </div>
+                                          <div>
+                                            {% for ol in order.order_lines %}
+                                              <div class="d-flex mb-1">
+                                                <p class="me-auto mb-1 mx-1" style="color:var(--bs-primary);">{{ol.product.name}}</p>
+                                                  <p class="mb-1 mx-1" style="color:var(--bs-secondary);">qty: {{ol.quantity ~ 'oz'}}</p>
+                                                  <p class="mb-1 mx-1" style="color:var(--bs-secondary);"></p>
+                                                  <p class="mb-1 mx-1" style="color:var(--bs-secondary);">${{ol.quantity * ol.product.unit_price}}</p>
+                                              </div>
+                                            {% endfor %}
+
+                                              <div>
+                                                  <hr class="my-1">
+                                              </div>
+                                              <div class="d-flex flex-row-reverse mb-1">
+                                                <p class="mb-1 mx-1 h5" style="color:var(--bs-secondary);">${{order.computed_total}}</p>
+                                                  <p class="mb-1 mx-1" style="color:var(--bs-secondary);">total:</p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                </div>
+                                {% endfor %}
+
+
+                                <div class="d-flex justify-content-between mmb-2" aria-controls="">
+                                  {#<div class="text-end d-inline-flex" aria-controls=""> </div> #}
+                                  <div class="text-end d-inline-flex" aria-controls="">
+
+
+                                    <nav class="d-lg-flex justify-content-lg-end paging_simple_numbers">
+                                        <ul class="pagination">
+                                        {% set pagination = paginate(page) %}
+                                          <li class="page-item {{'disabled' if page in range(1, page_nav_size+1) else ''}}">
+                                            <a class="page-link " aria-label="Previous" href="{{url_for('auth.orders', page=pagination.min-1)}}">
+                                            <span aria-hidden="true">«</span></a>
+                                          </li>
+                                        {# {'page': 1, 'group': 1, 'index': 0, 'min': 0, 'max': 2} #}
+                                        {% for link in range(pagination.min, pagination.max+1) %}
+                                          {% set active = 'active' if page == link %}
+                                          <li class="page-item {{active}}">
+                                            <a class="page-link" href="{{url_for('auth.orders', page=link)}}">{{link}}</a>
+                                          </li>
+                                        {% endfor %}
+                                          <li class="page-item {{'disabled' if pages in range(pagination.min, pagination.max+1) else ''}}">
+                                            <a class="page-link" aria-label="Next" href="{{url_for('auth.orders', page=pagination.max+1)}}">
+                                            <span aria-hidden="true">»</span></a>
+                                          </li>
+                                        </ul>
+                                    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      {#
+                                      <nav class="d-lg-flex justify-content-lg-end">
+                                          <ul class="pagination">
+                                              <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                              <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                          </ul>
+                                      </nav>
+                                      #}
+                                   </div>
+                                </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+
+
+{% endblock %}

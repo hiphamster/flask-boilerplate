@@ -21,6 +21,7 @@ class Product(BaseModel):
 
     name: Mapped[str] = mapped_column(String(30), unique=True)
     description: Mapped[str] = mapped_column(String(100), nullable=True)
+    #TODO change OUNCES to OZ
     units: Mapped[ProductWeight] = mapped_column(SQAEnum(ProductWeight), server_default='OUNCES',
                                                  nullable=False)
     unit_price: Mapped[float] = mapped_column(Float)

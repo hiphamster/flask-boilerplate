@@ -17,6 +17,7 @@ class User(BaseModel, UserMixin):
     password_hash: Mapped[str] = mapped_column(String(255), unique=False, nullable=False)
     # email_verified_at: Mapped[datetime] = mapped_column(DateTime, unique=False, nullable=True)
 
+    # 'Murzik12'/'MrHorse!'
     @property
     def password(self):
         raise AttributeError('Password is not a readable property')

@@ -1,5 +1,5 @@
 from sqlalchemy import Float, ForeignKey, Integer, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .BaseModel import BaseModel
 from .Order import Order
@@ -16,8 +16,14 @@ class OrderLine(BaseModel):
 
     quantity: Mapped[int] = mapped_column(Integer)
 
+    # bidirectional relationship
+    order: Mapped["Order"] = relationship(back_populates="order_lines")
+
+    product: Mapped["Product"] = relationship()
+
+
     #XXX probably not needed, as
-    total: Mapped[float] = mapped_column(Float)
+    total: Mapped[float] = mapped_column(Float, nullable=True)
 
     __table_args__ = (UniqueConstraint('order_id', 'product_id', name='oid_pid'),)
 

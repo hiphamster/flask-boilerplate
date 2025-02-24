@@ -9,6 +9,10 @@ from celery import Celery
 from depot.manager import DepotManager
 from config import DevelopmentConfig, TestingConfig
 
+from app import util
+
+# from app.controllers import paginate
+
 mail = Mail()
 db = SQLAlchemy()
 migrate = Migrate()
@@ -37,6 +41,7 @@ def factory(config=DevelopmentConfig):
     cache.init_app(app, config=cache_config)
 
     # initialize mail
+    # https://mailtrap.io/blog/flask-email-sending/
     mail.init_app(app)
     mail.app = app
 
@@ -59,6 +64,12 @@ def factory(config=DevelopmentConfig):
     register_blueprints(app)
     register_logging(app)
     register_error_handlers(app)
+
+
+    #TODO this should be done somewhere else
+    # add custom jinja filters
+    app.jinja_env.filters['phone_format'] = util.phone_format
+    # app.jinja_env.filters['paginate'] = paginate
 
     return app
 
@@ -113,6 +124,10 @@ def register_logging(app) -> None:
     # Add file handler object to the logger
     app.logger.addHandler(file_handler)
 
+    if app.config['DEBUG']:
+        app.logger.setLevel(logging.DEBUG)
+        file_handler.setLevel(logging.DEBUG)
+
 
 def register_error_handlers(app) -> None:
     # 400 - Bad Request
@@ -159,3 +174,4 @@ def register_error_handlers(app) -> None:
             "message": "Internal Server Error"
         }
         return render_template('errors/500.html', **data), 500
+

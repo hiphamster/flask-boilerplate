@@ -12,6 +12,12 @@ class Config(object):
     DEBUG = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     TEMPLATES_AUTO_RELOAD = True
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 280,
+        'pool_size': 10,       # Number of connections to keep open inside the pool
+        'max_overflow': 20    # Additional connections allowed above pool_sizef
+    }
 
 
 # Create the development config
@@ -32,6 +38,7 @@ class DevelopmentConfig(Config):
     RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
     REDIS_HOST = os.getenv('REDIS_HOST')
     REDIS_PORT = os.getenv('REDIS_PORT')
+    
 
 
 # Create the testing config
