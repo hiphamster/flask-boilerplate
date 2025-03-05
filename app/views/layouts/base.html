@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
-
+{% import "macros/alerts.html" as alerts %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/Navbar-With-Button-icons.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
 </head>
 
@@ -18,11 +19,26 @@
 
     {% include 'partials/n_navbar.html' %}
 
-    {# here #}
-    {% block content %}
-    {% endblock %}
 
+    <div id="wrapper">
+      <div id="content-wrapper" class="d-flex flex-column" style="margin: 75px 3px 1px 3px; ">
+            <div id="messages">
+          {# alerts.alert(color='warning', strong='', message='Test,test, test!') #}
+          {% include 'partials/messages.html' %}
+            </div>
+            <div id="content">
+              {% block content %}
+              {% endblock %}
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
 
+    <script src="{{ url_for('static', filename='js/koalaty.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>

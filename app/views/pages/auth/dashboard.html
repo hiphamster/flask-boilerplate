@@ -1,163 +1,92 @@
 {% extends "layouts/base.html" %}
+{% import 'macros/alerts.html' as alerts %}
 
 {% block content %}
 
-  {# <div id="wrapper"> #}
-    <div id="wrapper" style="border-top-style: solid;border-top-color: var(--bs-black);">
-
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <div class="container-fluid" style="margin-top: 100px;max-width: 650px;">
-                    <div class="row mb-2">
-                        <div class="col mb-2">
-                            <div class="input-group"><input class="form-control" type="text" placeholder="Search for..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                        </div>
+          <div class="container-fluid" style="max-width: 650px;">
+              <div class="row">
+                  <div class="col mt-2 mb-3">
+                      <div class="input-group"><input class="form-control" type="text" placeholder="Search for..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                  </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col">
+                    <div>
+                        <h6 class="text-primary fw-bold m-0">Open orders</h6>
                     </div>
-                    <div class="row mb-2">
-                      <div class="col">
-                          <div>
-                              <h6 class="text-primary fw-bold m-0">Open orders</h6>
+                </div>
+              </div>
+              <div class="row mb-2">
+                  <div class="col mb-2">
+                      <div class="card shadow border-left-primary py-2">
+                          <div class="card-body">
+                              <div class="row g-0 align-items-center">
+                                  <div class="col me-2">
+                                      <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total</span></div>
+                                      <div class="text-dark fw-bold h5 mb-0"><span>{{ orders.open }}</span></div>
+                                  </div>
+                                  <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                              </div>
                           </div>
                       </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col mb-2">
-                        {# <div class="col-6 mb-4"> #}
-                            <div class="card shadow border-left-primary py-2">
-                                <div class="card-body">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Total</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>{{ orders.open }}</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {#
-                        {% for p in ooc_by_product %}
-                        <div class="col-6 mb-4">
-                            <div class="card shadow border-left-warning py-2">
-                                <div class="card-body">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col me-2">
-                                          <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>{{ p.product }}</span></div>
-                                          <div class="text-dark fw-bold h5 mb-0"><span>{{ p.count }}</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-fish fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        #}
-                    </div>
+                  </div>
+              </div>
+              <div class="row mb-2">
+                  <div class="col-lg-12">
+                    <div id="accordion-2" class="accordion" role="tablist">
 
-                    <div class="row mb-2">
-                        <div class="col-lg-12">
-                          <div id="accordion-2" class="accordion" role="tablist">
+                      {% for product, cust_list in product_customer_mapping.product_to_customer.items() %}
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-{{loop.index}}" aria-expanded="true" aria-controls="accordion-2 .item-{{loop.index}}">{{ product }}</button></h2>
+                            <div class="accordion-collapse collapse item-{{loop.index}}" role="tabpanel" data-bs-parent="#accordion-2">
+                                  <div class="accordion-body">
+                                      <ul class="list-group list-group-flush">
 
-                            {% for product, cust_list in product_customer_mapping.product_to_customer.items() %}
-                                <div class="accordion-item">
-                                  <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-{{loop.index}}" aria-expanded="true" aria-controls="accordion-2 .item-{{loop.index}}">{{ product }}</button></h2>
-                                  <div class="accordion-collapse collapse item-{{loop.index}}" role="tabpanel" data-bs-parent="#accordion-2">
-                                        <div class="accordion-body">
-                                            <ul class="list-group list-group-flush">
+                                          <li class="list-group-item d-flex justify-content-between align-items-start">
+                                              <div class="me-auto ms-2">
+                                                  <div class="fw-bold">
+                                                      <p class="text-primary mb-0">Orders</p>
+                                                  </div>
+                                              </div><span class="text-bg-success badge rounded-pill">{{ ooc_by_product[product].count }}</span>
+                                          </li>
+                                          <li class="list-group-item d-flex justify-content-between align-items-start">
+                                              <div class="me-auto ms-2">
+                                                  <div class="fw-bold">
+                                                      <p class="text-primary mb-0">Weight</p>
+                                                  </div>
+                                              </div><span class="text-bg-info-subtle badge rounded-pill">{{ oo_product_qty[product].weight ~ ' lb' }}</span>
+                                          </li>
+                                          <li class="list-group-item d-flex justify-content-between align-items-start">
+                                              <div class="me-auto ms-2">
+                                                  <div class="fw-bold">
+                                                      <p class="text-primary mb-0">Quantity</p>
+                                                  </div>
+                                              </div><span class="text-bg-info-subtle badge rounded-pill">{{ oo_product_qty[product].pieces ~ ' pcs' }}</span>
+                                          </li>
 
-                                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                    <div class="me-auto ms-2">
-                                                        <div class="fw-bold">
-                                                            <p class="text-primary mb-0">Orders</p>
-                                                        </div>
-                                                    </div><span class="text-bg-success badge rounded-pill">{{ ooc_by_product[product].count }}</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                    <div class="me-auto ms-2">
-                                                        <div class="fw-bold">
-                                                            <p class="text-primary mb-0">Weight</p>
-                                                        </div>
-                                                    </div><span class="text-bg-info-subtle badge rounded-pill">{{ oo_product_qty[product].weight ~ ' lb' }}</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                    <div class="me-auto ms-2">
-                                                        <div class="fw-bold">
-                                                            <p class="text-primary mb-0">Quantity</p>
-                                                        </div>
-                                                    </div><span class="text-bg-info-subtle badge rounded-pill">{{ oo_product_qty[product].pieces ~ ' pcs' }}</span>
-                                                </li>
-
-                                                {% for customer in cust_list %}
-                                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                    <div class="me-auto ms-2">
-                                                      <div class="fw-normal">
-                                                        {# <p class="mb-0">{{loop.index ~ '. ' ~ customer }}</p> #}
-                                                          <p class="mb-0">{{customer}}</p> 
-                                                      </div>
-                                                    </div>
-                                                    {% set weight_pieces = product_customer_mapping.customer_to_product[customer][product] %}
-                                                      {# <span>{{stat.weight}}</span> #}
-                                                      <span class="text-bg-info-subtle badge rounded-pill me-1">{{weight_pieces[0] ~ ' oz'}}</span>
-                                                      <span class="text-bg-success badge rounded-pill">{{weight_pieces[1] ~ ' pcs'}}</span>
-                                                </li>
-                                                {% endfor %}
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-
-                          </div>
-                        </div>
-                    </div>
-                    {#
-                    <div class="row mb-2">
-                        <div class="col-lg-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary fw-bold m-0">Open orders products</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                  <div class="table-responsive">
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-                                          <th>Product</th>
-                                          <th>Weight</th>
-                                          <th>Pieces</th>
-                                        <tr>
-                                      </thead>
-                                      <tbody>
-                                      {% for prod in oo_product_qty.values() %}
-                                        <tr>
-                                          <td>{{ prod.name }}</td>
-                                          <td>{{ prod.weight ~ ' lb' }}</td>
-                                          <td>{{ prod.pieces }}</td>
-                                        </tr>
-                                      {% endfor %}
-                                      </tbody>
-                                    </table>
+                                          {% for customer in cust_list %}
+                                          <li class="list-group-item d-flex justify-content-between align-items-start">
+                                              <div class="me-auto ms-2">
+                                                <div class="fw-normal">
+                                                  {# <p class="mb-0">{{loop.index ~ '. ' ~ customer }}</p> #}
+                                                    <p class="mb-0">{{customer}}</p> 
+                                                </div>
+                                              </div>
+                                              {% set weight_pieces = product_customer_mapping.customer_to_product[customer][product] %}
+                                                {# <span>{{stat.weight}}</span> #}
+                                                <span class="text-bg-info-subtle badge rounded-pill me-1">{{weight_pieces[0] ~ ' oz'}}</span>
+                                                <span class="text-bg-success badge rounded-pill">{{weight_pieces[1] ~ ' pcs'}}</span>
+                                          </li>
+                                          {% endfor %}
+                                      </ul>
                                   </div>
-                                </div>
-                            </div>
-                        </div>
+                              </div>
+                          </div>
+                      {% endfor %}
                     </div>
-                    #}
-                </div>
-            </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
+                  </div>
+              </div>
+          </div>
+
 
 {% endblock %}

@@ -36,7 +36,7 @@ class Order(BaseModel):
 
 
     # bidirectional relationship
-    order_lines: Mapped[List["OrderLine"]] = relationship(back_populates="order")
+    order_lines: Mapped[List["OrderLine"]] = relationship(back_populates="order") # pyright: ignore
 
     #XXX To be canged when proper order pricing is done
     @property

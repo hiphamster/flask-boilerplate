@@ -1,0 +1,36 @@
+{% macro pagination(model) %}
+
+      <nav class="d-lg-flex justify-content-lg-end paging_simple_numbers">
+          <ul class="pagination">
+          {% set pagination = paginate(page=page, pages=pages, navs=navs) %}
+            {# first #}
+            <li class="page-item {{'disabled' if page in range(1, navs+1) else ''}}">
+              <a class="page-link " aria-label="Previous" href="{{url_for(model, page=1)}}">
+                <i class="ti ti-chevrons-left"></i></a>
+            </li>
+            {# prev #}
+            <li class="page-item {{'disabled' if page in range(1, navs+1) else ''}}">
+              <a class="page-link " aria-label="Previous" href="{{url_for(model, page=pagination.min-1)}}">
+                <i class="ti ti-chevron-left"></i></a>
+            </li>
+          {% for link in range(pagination.min, pagination.max+1) %}
+            {% set active = 'active' if page == link %}
+            <li class="page-item {{active}}">
+              <a class="page-link" href="{{url_for(model, page=link)}}">{{link}}</a>
+            </li>
+          {% endfor %}
+            {# next #}
+            <li class="page-item {{'disabled' if pages in range(pagination.min, pagination.max+1) else ''}}">
+              <a class="page-link" aria-label="Next" href="{{url_for(model, page=pagination.max+1)}}">
+                <i class="ti ti-chevron-right"></i></a>
+              {#<span aria-hidden="true"><i class="ti ti-chevron-right"></i></span></a> #}
+            </li>
+            {# last #}
+            <li class="page-item {{'disabled' if pages in range(pagination.min, pagination.max+1) else ''}}">
+              <a class="page-link" href="{{url_for(model, page=pages)}}">
+                <i class="ti ti-chevrons-right"></i></a>
+            </li>
+          </ul>
+      </nav>
+
+{% endmacro %}

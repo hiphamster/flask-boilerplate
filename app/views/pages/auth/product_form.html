@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+  <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;">
+      <div class="row mb-3">
+          <div class="col">
+              <div class="card shadow mb-3">
+                  <div class="d-flex card-header py-3">
+                      <span class="text-primary m-0 fw-bold">New product</span>
+                      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" onclick="redirect('/products')">
+                      {# <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> #}
+                  </div>
+                  <div class="card-body">
+                    <form method="POST" action={{url_for('auth.new_product')}}>
+                      <div class="mb-3">{{form.name.label(class='form-label')}} {{form.name(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.desc.label(class='form-label')}} {{form.desc(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.units.label(class='form-label')}} {{form.units(class='form-select')}}</div>
+
+                      <div class="mb-3">{{form.avg_weight.label(class='form-label')}} {{form.avg_weight(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.unit_price.label(class='form-label')}} {{form.unit_price(class='form-control')}}</div>
+
+                      <div class="mb-3 mt-3">{{form.notes.label(class='form-label')}} {{form.notes(class='form-control', rows='4')}}</div>
+
+                      <div class="mb-3 mt-1">
+                        {{form.submit(class='btn btn-danger me-1')}}
+                      </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock %}

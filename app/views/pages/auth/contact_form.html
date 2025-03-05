@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+  <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;">
+      <div class="row mb-3">
+          <div class="col">
+              <div class="card shadow mb-3">
+                  <div class="d-flex card-header py-3">
+                      <span class="text-primary m-0 fw-bold">New contact</span>
+                      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" onclick="redirect('/contacts')">
+                      {# <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> #}
+                  </div>
+                  <div class="card-body">
+                    <form method="POST" action={{url_for('auth.new_contact')}}>
+                      <div class="mb-3">{{form.fname.label(class='form-label')}} {{form.fname(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.lname.label(class='form-label')}} {{form.lname(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.email.label(class='form-label')}} {{form.email(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.mobile_phone.label(class='form-label')}} {{form.mobile_phone(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.street.label(class='form-label')}} {{form.street(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.city.label(class='form-label')}} {{form.city(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.state.label(class='form-label')}} {{form.state(class='form-select')}}</div>
+
+                      <div class="mb-3">{{form.zipcode.label(class='form-label')}} {{form.zipcode(class='form-control')}}</div>
+
+                      <div class="mb-3">{{form.fb_url.label(class='form-label')}} {{form.fb_url(class='form-control')}}</div>
+
+                      <div class="mb-3 mt-3">{{form.notes.label(class='form-label')}} {{form.notes(class='form-control', rows='4')}}</div>
+
+                      <div class="mb-3 mt-1">
+                        {{form.submit(class='btn btn-danger me-1')}}
+                      </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock %}

@@ -7,12 +7,12 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 
 class ProductWeight(Enum):
-    POUNDS = 'lbs'
-    KILOGRAMS = 'kgs'
+    POUNDS = 'lb'
+    KILOGRAMS = 'kg'
     OUNCES = 'oz'
     GRAMS = 'g'
     EACH = 'ea'
-    PERCENT = '%'
+    # PERCENT = '%'
 
 
 class Product(BaseModel):

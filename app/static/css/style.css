@@ -21,3 +21,7 @@ body {
   color: var(--bs-dark);
   background: var(--bs-info-border-subtle);
 } 
+
+.ti {
+  font-size: 18px;
+}

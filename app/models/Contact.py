@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import Computed, String, UniqueConstraint, func, select
+from sqlalchemy import Computed, String, UniqueConstraint, func
 # from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -34,7 +34,8 @@ class Contact(BaseModel):
     personal_facebook_url: Mapped[str] = mapped_column(String(255), nullable=True)
 
     # bidirectional relationship
-    orders: Mapped[List["Order"]] = relationship(back_populates="contact")
+    orders: Mapped[List["Order"]] = relationship(back_populates="contact") # pyright: ignore
+
 
     @property
     def order_count(self):

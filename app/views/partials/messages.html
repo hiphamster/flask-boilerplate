@@ -1,0 +1,11 @@
+{% import 'macros/alerts.html' as alerts %}
+
+<div class="col-xl-12 mb-2">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {{ alerts.alert(color=category, strong=category|capitalize ~ '!', message=message) }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>

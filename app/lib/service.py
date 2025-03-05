@@ -1,5 +1,4 @@
 from flask import current_app
-from flask_migrate import current
 from app.models import BaseModel
 from typing import Type, TypeVar, Optional
 from app import db
@@ -27,10 +26,9 @@ class Service():
     @classmethod
     def get_paginated(cls, order_by:Optional[Type[ColumnElement]], 
                       page: int = 1, page_size: int = 0):
-        """Retrieve all contacts with pagination"""
+        """Retrieve 'page_size' records, starting at 'page'"""
 
         current_app.logger.debug(f'cls: {cls}')
-
 
         # offset((page - 1) * page_size)
         stmt = select(cls.Model).order_by(order_by).limit(
@@ -45,7 +43,7 @@ class Service():
         # if count % page_size:
         #   pages += 1
 
-        return {
+        paginated = {
             # number of records
             'count': count,
             # records per page
@@ -54,6 +52,11 @@ class Service():
             'pages': pages, 
             # current page
             'page': page,
+            # collection of db objects
             'instances': db.session.scalars(stmt),
-         }
+        }
+
+        current_app.logger.debug(f'paginated: {paginated}')
+
+        return paginated
 
