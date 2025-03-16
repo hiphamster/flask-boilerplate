@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - KoalatyEndeavors</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-expand-md fixed-top bg-body py-3">
+        <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="#"><span style="color: var(--bs-primary);font-weight: bold;">KoalatyEndeavors</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.html" style="color: var(--bs-primary);font-weight: bold;">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact_table.html" style="color: var(--bs-primary);font-weight: bold;">Contacts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order_table.html" style="color: var(--bs-primary);font-weight: bold;">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product_table.html" style="color: var(--bs-primary);font-weight: bold;">Products</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid" style="margin-top: 80px;max-width: 650px;">
+                    <div class="row mb-2">
+                        <div class="col-xl-12 mt-2">
+                            <div class="input-group"><input class="form-control" type="text" placeholder="Search for..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3"><span class="fw-bold text-primary">&nbsp;New Order&nbsp;</span></div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="d-flex mb-2 gap-1 mb-sm-0">
+                                            <div class="flex-grow-1 mb-2"><label class="form-label" for="first_name-1"><strong>Order date</strong></label><input class="form-control" id="o_date" type="date"></div>
+                                            <div class="flex-grow-1 mb-2"><label class="form-label" for="first_name-1"><strong>Due date</strong></label><input class="form-control" id="od_date" type="date"></div>
+                                        </div>
+                                        <div class="mb-2"><label class="form-label" for="first_name-2"><strong>Contact</strong></label><select class="form-select" id="contact" name="contac_name">
+                                                <option value="Vladimir Begun">Vladimir Begun</option>
+                                                <option value="Mila Serper" selected="">Mila Serper</option>
+                                                <option value="Goda Gavartin">Goda Gavartin</option>
+                                            </select></div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h5 class="fw-bold mb-0" style="font-size: 16px;">Products</h5><button class="btn btn-primary" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                    <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
+                                                </svg></button>
+                                        </div>
+                                        <div class="d-flex gap-1">
+                                            <div class="flex-grow-1 mb-2 mb-sm-0"><select class="form-select w-100" id="ol_1">
+                                                    <optgroup label="This is a group">
+                                                        <option value="Salmon CS" selected="">Salmon CS</option>
+                                                        <option value="Trout HS">Trout HS</option>
+                                                        <option value="Black Cod HS">Black Cod HS</option>
+                                                    </optgroup>
+                                                </select></div>
+                                            <div class="mb-2"><input class="form-control" type="number" id="ol_1_qty" style="width: 4.0rem;" value="1"></div>
+                                            <div class="mb-2"><button class="btn btn-danger" id="ol_1_delete" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                        <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
+                                                    </svg></button></div>
+                                        </div>
+                                        <div class="d-flex gap-1">
+                                            <div class="flex-grow-1 mb-2 mb-sm-0"><select class="form-select w-100">
+                                                    <optgroup label="This is a group">
+                                                        <option value="Salmon CS" selected="">Salmon CS</option>
+                                                        <option value="Trout HS">Trout HS</option>
+                                                        <option value="Black Cod HS">Black Cod HS</option>
+                                                    </optgroup>
+                                                </select></div>
+                                            <div class="mb-2"><input class="form-control" type="number" style="width: 4.0rem;" value="1"></div>
+                                            <div class="mb-2"><button class="btn btn-danger" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                        <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
+                                                    </svg></button></div>
+                                        </div>
+                                        <div class="d-flex gap-1">
+                                            <div class="flex-grow-1 mb-2 mb-sm-0"><select class="form-select w-100">
+                                                    <optgroup label="This is a group">
+                                                        <option value="Salmon CS" selected="">Salmon CS</option>
+                                                        <option value="Trout HS">Trout HS</option>
+                                                        <option value="Black Cod HS">Black Cod HS</option>
+                                                    </optgroup>
+                                                </select></div>
+                                            <div class="mb-2"><input class="form-control" type="number" style="width: 4.0rem;" value="1"></div>
+                                            <div class="mb-2"><button class="btn btn-danger" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                        <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
+                                                    </svg></button></div>
+                                        </div>
+                                        <div class="mb-3 mt-3"><label class="form-label" for="first_name-4"><strong>Notes</strong></label><textarea class="form-control" id="notes" rows="4" name="signature"></textarea></div>
+                                        <div class="mb-3 mt-3"><button class="btn btn-primary" id="save_order" type="button">Save Changes!</button></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

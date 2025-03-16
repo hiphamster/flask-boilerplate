@@ -1,14 +1,23 @@
 # import logging 
+from math import e
+import pdb
+
+from ast import Sub
 from pprint import pformat
+from socket import send_fds
+from typing import OrderedDict
 
 from flask import (current_app, flash, get_flashed_messages, make_response,
                    redirect, render_template, request, session, url_for)
+from flask.sessions import SessionInterface
 from flask_login import current_user, login_required, login_user, logout_user
+from flask_migrate import current
+from itsdangerous import exc
 
 from app.lib.util import paginate
 
 # from app.forms import ForgotPasswordForm
-from app.forms import LoginForm, ProductForm, ContactForm
+from app.forms import LoginForm, ProductForm, ContactForm, OrderForm, OrderLineForm
 # from app.lib.dashboard import Dashboard
 from app.lib.exceptions import KoalatyException, RecordExistsException
 from app.lib.dashboard.dashboard import Dashboard
@@ -18,7 +27,10 @@ from app.lib.product import ProductSvc
 # from app.models import Contact
 from app.models.User import User
 
-from werkzeug.datastructures import MultiDict
+from werkzeug.datastructures import MultiDict, accept
+
+#XXX
+from wtforms import FormField, SelectField, SubmitField, IntegerField
 
 # logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)
@@ -33,8 +45,6 @@ class AuthController():
         """
         Login page
         """
-
-        current_app.logger.error('Foo')
 
         form = LoginForm()
         if request.method == 'GET':
@@ -54,9 +64,12 @@ class AuthController():
                                            message="User not found!")
 
                 if user.check_password(password):
-                    flash('Logged in successfully!')
+                    flash('Logged in successfully!','success')
                     login_user(user)
                     return redirect('/home')
+                else:
+                    flash('Invalid password','error')
+                    current_app.logger.error(f'Invalid password')
 
 
             return render_template('pages/auth/login.html', 
@@ -205,6 +218,161 @@ class AuthController():
         current_app.logger.debug(f'data: \n{data}')
 
         return render_template('pages/auth/orders.html', **data)
+
+
+
+    @login_required
+    def new_order():
+
+        # pdb.set_trace()
+        current_app.logger.debug(f"OrderForm order_lines: {list(filter(lambda a: a.startswith('order_line_'),dir(OrderForm)))}")
+        current_app.logger.debug(f'Session order_lines: {session.get("order_lines", "none")}')
+
+        if request.method == 'POST':
+            current_app.logger.debug(f'----------->request method: {request.method}')
+            current_app.logger.debug(f'session: \n{pformat(session)}')
+            current_app.logger.debug(f'order request.form: {pformat(request.form)}')
+            try:
+                # current_app.logger.debug(f'new_order post: \n{pformat(request.form)}')
+                session['current_order'] = MultiDict(request.form)
+                current_app.logger.debug(f'current_order: \n{pformat(dict(session.get("current_order","none")))}')
+                
+                # debug
+                formdata = MultiDict(session.get('current_order', {}))
+                current_app.logger.debug(f'form_data: {formdata}')
+                form = OrderForm(formdata=formdata)
+
+                return render_template('pages/auth/order_form.html', title='New order', form=form)
+
+                # XXX XXX
+                # after order is saved clear session['current_order'], session['order_lines']
+                # and session['ol_id']
+
+                # go back
+                # return redirect('/orders')
+
+            except RecordExistsException as e:
+                #TODO
+                current_app.logger.debug(f'RecordExists: {e}')
+                fname = request.form.get("fname","missing")
+                lname = request.form.get("lname","missing")
+                flash(f'Order "{fname} {lname}" exists','warning')
+                session['order_form'] = request.form
+                return redirect('/new_order')
+
+            except KoalatyException as e:
+                current_app.logger.error(f'KoalatyException: {e}')
+                flash(f'Order not added!','error')
+                return redirect('/orders')
+
+        else:
+            current_app.logger.debug(f'----------->request method: {request.method}')
+            current_app.logger.debug(f'-->session: {session}')
+            current_app.logger.debug(f"session current_order (t/f): {session.get('current_order', False)}")
+            current_app.logger.debug(f'current_order: \n{pformat(dict(session.get("current_order","none")))}')
+
+            # pdb.set_trace()
+
+            if session.get('current_order', False) == False:
+            # new order
+                # pdb.set_trace()
+                current_app.logger.debug('New order')
+                session['current_order'] = MultiDict()
+                session['order_lines'] = list()
+                form = OrderForm()
+            else:
+            # in-progress order
+                current_app.logger.debug(f'Existing order')
+
+                if 'order_lines' in session:                                
+                    for ol in session['order_lines']: 
+                        current_app.logger.debug(f'adding ol: {ol}')
+                        OrderForm.add_order_line(name=ol)
+                else:
+                    session['order_lines'] = list()
+
+                current_app.logger.debug(f'request.form: {request.form.to_dict()}')
+                form = OrderForm(formdata=MultiDict(session['current_order']))
+
+
+            current_app.logger.debug(f"OrderForm order_lines: {list(filter(lambda a: a.startswith('order_line_'),dir(OrderForm)))}")
+            current_app.logger.debug(f'Session order_lines: {session.get("order_lines", "none")}')
+
+            return render_template('pages/auth/order_form.html', title='New order', form=form)
+
+
+    @login_required
+    def add_order_line():
+
+        # only POST
+
+        current_app.logger.debug('add order_line')
+        current_app.logger.debug(f'session: {session}')
+
+        session['current_order'] = MultiDict(request.form)
+
+        # new ol_id
+        ol_id = session.get('ol_id', 0) + 1
+
+        order_lines = session.get('order_lines', list())
+        order_lines.append(f'order_line_{ol_id}')
+
+        session['order_lines'] = order_lines
+        session['ol_id'] = ol_id
+
+        current_app.logger.debug(f'session: {session}')
+        return redirect(url_for('auth.new_order'))
+
+
+    @login_required
+    def remove_order_line():
+        # only POST
+        try:
+            order_lines = session['order_lines']
+
+            # example button name 'order_line_2-remove'
+            ol = ''
+
+            # figure out for which order_line 'remove' button was clicked
+            for k in request.form:
+                if k.endswith('-remove'):
+                    current_app.logger.debug(f'removed clicked: {k}')
+                    ol = k.removesuffix('-remove')
+                    break
+
+            current_app.logger.debug(f'ol to be removed: {ol}')
+
+            if ol in order_lines:
+                order_lines.remove(ol)
+                # remove field from the form
+                OrderForm.remove_order_line(name=ol)
+                session['order_lines'] = order_lines 
+            else:
+                current_app.logger.error(f'Order line {ol} not found in session["order_lines"]')
+                current_app.logger.error(f'session: \n{session}')
+                flash(f'Error removing order line','error')
+
+        except KeyError:
+            current_app.logger.error(f'KeyError when trying to access session["order_lines"]')
+            current_app.logger.error(f'session: \n{session}')
+            flash(f'Error removing order line','error')
+
+        current_app.logger.debug(f'session: {session}')
+        return redirect(url_for('auth.new_order'))
+
+    @login_required
+    def new_order_reset():
+
+        OrderForm.remove_all_order_lines()
+
+        session.pop('current_order', None)
+        session.pop('order_lines', None)
+        session.pop('ol_id', None)
+
+        current_app.logger.debug(f'order reset, session: {session}')
+
+        return redirect(url_for('auth.new_order'))
+
 
 
     @login_required

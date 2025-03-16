@@ -12,7 +12,6 @@ from app.lib import Service
 from app.lib.exceptions import KoalatyException, RecordExistsException
 from app.models import Contact
 
-
 class ContactSvc(Service):
     Model = Contact
 
@@ -55,6 +54,21 @@ class ContactSvc(Service):
     @classmethod
     def update_contact(cls, id: int, form_data: dict):
         pass
+
+    @classmethod
+    def id_name_list(cls):
+        try:
+            stmt = select(cls.Model.id, cls.Model.full_name).order_by(cls.Model.full_name) # pyright: ignore
+            return [(k,v) for (k,v) in db.session.execute(stmt).all()]
+
+        except sqlalchemy.exc.DBAPIError as e:
+            current_app.logger.error(f'Database operation failed: {e}')
+            raise KoalatyException('Database error')
+
+        except Exception as e:
+            current_app.logger.error(f'Operation failed: {e}')
+            raise KoalatyException('Operation failed: {e}')
+
 
 #    #TODO needs to match super().get_by_name()
 #    @classmethod

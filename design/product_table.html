@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - KoalatyEndeavors</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-expand-md fixed-top bg-body py-3">
+        <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="#"><span style="color: var(--bs-primary);font-weight: bold;">KoalatyEndeavors</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.html" style="color: var(--bs-primary);font-weight: bold;">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact_table.html" style="color: var(--bs-primary);font-weight: bold;">Contacts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order_table.html" style="color: var(--bs-primary);font-weight: bold;">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product_table.html" style="color: var(--bs-primary);font-weight: bold;">Products</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="wrapper" style="border-top-style: solid;border-top-color: var(--bs-black);">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;margin-top: 100px;">
+                    <div class="row mb-2">
+                        <div class="col-xl-12 mb-2">
+                            <div class="input-group"><input class="form-control" type="text" placeholder="Search for..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">Products</p>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <div>
+                                            <div class="d-flex justify-content-between" aria-controls="">
+                                                <div class="text-end d-inline-flex" aria-controls=""><a class="btn btn-primary btn-sm" role="button" id="new_product" href="product_form.html">New product</a></div>
+                                                <div class="text-end d-inline-flex" aria-controls=""><select>
+                                                        <option value="5" selected="">5</option>
+                                                        <option value="10">10</option>
+                                                    </select></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                                        <table class="table my-0" id="dataTable">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="card shadow border-left-primary py-2">
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="me-auto">
+                                                                        <p class="fw-bold h5 mb-0" style="color:var(--bs-secondary);">$24/lb</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p class="fw-bold text-info h5 mb-0">Salmon CS</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <hr class="my-1">
+                                                                </div>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="text-end me-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" class="fa-2x text-gray-300" style="height: 35px;">
+                                                                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                                            <path d="M275.2 38.4c-10.6-8-25-8.5-36.3-1.5S222 57.3 224.6 70.3l9.7 48.6c-19.4 9-36.9 19.9-52.4 31.5c-15.3 11.5-29 23.9-40.7 36.3L48.1 132.4c-12.5-7.3-28.4-5.3-38.7 4.9S-3 163.3 4.2 175.9L50 256 4.2 336.1c-7.2 12.6-5 28.4 5.3 38.6s26.1 12.2 38.7 4.9l93.1-54.3c11.8 12.3 25.4 24.8 40.7 36.3c15.5 11.6 33 22.5 52.4 31.5l-9.7 48.6c-2.6 13 3.1 26.3 14.3 33.3s25.6 6.5 36.3-1.5l77.6-58.2c54.9-4 101.5-27 137.2-53.8c39.2-29.4 67.2-64.7 81.6-89.5c5.8-9.9 5.8-22.2 0-32.1c-14.4-24.8-42.5-60.1-81.6-89.5c-35.8-26.8-82.3-49.8-137.2-53.8L275.2 38.4zM384 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+                                                                        </svg></div>
+                                                                    <div>
+                                                                        <p class="text-end text-primary mb-0">Cold-smoked salmon</p>
+                                                                        <p class="text-end text-primary mb-1"></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="card shadow border-left-primary py-2">
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="me-auto">
+                                                                        <p class="fw-bold h5 mb-0" style="color:var(--bs-secondary);">$24/lb</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p class="fw-bold text-info h5 mb-0">Salmon HS</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <hr class="my-1">
+                                                                </div>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="text-end me-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" class="fa-2x text-gray-300" style="height: 35px;">
+                                                                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                                            <path d="M275.2 38.4c-10.6-8-25-8.5-36.3-1.5S222 57.3 224.6 70.3l9.7 48.6c-19.4 9-36.9 19.9-52.4 31.5c-15.3 11.5-29 23.9-40.7 36.3L48.1 132.4c-12.5-7.3-28.4-5.3-38.7 4.9S-3 163.3 4.2 175.9L50 256 4.2 336.1c-7.2 12.6-5 28.4 5.3 38.6s26.1 12.2 38.7 4.9l93.1-54.3c11.8 12.3 25.4 24.8 40.7 36.3c15.5 11.6 33 22.5 52.4 31.5l-9.7 48.6c-2.6 13 3.1 26.3 14.3 33.3s25.6 6.5 36.3-1.5l77.6-58.2c54.9-4 101.5-27 137.2-53.8c39.2-29.4 67.2-64.7 81.6-89.5c5.8-9.9 5.8-22.2 0-32.1c-14.4-24.8-42.5-60.1-81.6-89.5c-35.8-26.8-82.3-49.8-137.2-53.8L275.2 38.4zM384 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+                                                                        </svg></div>
+                                                                    <div>
+                                                                        <p class="text-end text-primary mb-0">Hot-smoked salmon</p>
+                                                                        <p class="text-end text-primary mb-1"></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="card shadow border-left-primary py-2">
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="me-auto">
+                                                                        <p class="fw-bold h5 mb-0" style="color:var(--bs-secondary);">$16/lb</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p class="fw-bold text-info h5 mb-0">Trout HS</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <hr class="my-1">
+                                                                </div>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="text-end me-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" class="fa-2x text-gray-300" style="height: 35px;">
+                                                                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                                                            <path d="M275.2 38.4c-10.6-8-25-8.5-36.3-1.5S222 57.3 224.6 70.3l9.7 48.6c-19.4 9-36.9 19.9-52.4 31.5c-15.3 11.5-29 23.9-40.7 36.3L48.1 132.4c-12.5-7.3-28.4-5.3-38.7 4.9S-3 163.3 4.2 175.9L50 256 4.2 336.1c-7.2 12.6-5 28.4 5.3 38.6s26.1 12.2 38.7 4.9l93.1-54.3c11.8 12.3 25.4 24.8 40.7 36.3c15.5 11.6 33 22.5 52.4 31.5l-9.7 48.6c-2.6 13 3.1 26.3 14.3 33.3s25.6 6.5 36.3-1.5l77.6-58.2c54.9-4 101.5-27 137.2-53.8c39.2-29.4 67.2-64.7 81.6-89.5c5.8-9.9 5.8-22.2 0-32.1c-14.4-24.8-42.5-60.1-81.6-89.5c-35.8-26.8-82.3-49.8-137.2-53.8L275.2 38.4zM384 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+                                                                        </svg></div>
+                                                                    <div>
+                                                                        <p class="text-end text-primary mb-0">Hot-smoked trout</p>
+                                                                        <p class="text-end text-primary mb-1"></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 align-self-center">
+                                            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                                <ul class="pagination">
+                                                    <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

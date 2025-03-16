@@ -1,0 +1,86 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+  <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;">
+      <div class="row mb-3">
+          <div class="col">
+              <div class="card shadow mb-3">
+                  <div class="d-flex card-header py-3">
+                      <span class="text-primary m-0 fw-bold">New order</span>
+                      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" onclick="redirect('/orders')">
+                      {# <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> #}
+                  </div>
+                  <div class="card-body">
+                    <form method="POST" action={{url_for('auth.new_order')}}>
+                      {#<div class="mb-3">{{form.fname.label(class='form-label')}} {{form.fname(class='form-control')}}</div>#}
+                      <div class="d-flex mb-3">
+                          <div class="flex-grow-1 mb-2">{{form.order_date.label(class='form-label')}} {{form.order_date(class='form-control', type='datetime-local')}}</div>
+                      </div>
+                      <div class="d-flex mb-3">
+                          <div class="flex-grow-1 mb-2">{{form.due_date.label(class='form-label')}} {{form.due_date(class='form-control', type='datetime-local')}}</div>
+                      </div>
+                      <div class="mb-2"> {{form.contact.label(class='form-label')}} {{form.contact(class='form-select')}}</div>
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0" style="font-size: 16px;">Products</h5>
+                          {{form.add_product(class='btn btn-primary', formaction=url_for('auth.add_order_line'))}}
+                          {#
+                        <button class="btn btn-primary" type="input" name="add_product">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                            <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
+                          </svg>
+                        </button>
+                          #}
+                      </div>
+                      {#
+                      {% for field in form %}
+                        {% if field.name.startswith('prod') %}
+                          <div class="d-flex gap-1">
+                            <div class="flex-grow-1 mb-2 mb-sm-0">
+                              {{ field(class='form-select') }}
+                            </div>
+                            <div class="mb-2">
+                              {{ form.qty1(class='form-control', type='number', style='width: 4.0rem;') }}
+                            </div>
+                              <div class="mb-2">
+                                {{ form.rm1(class='btn btn-danger') }}
+                              </div>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                      #}
+
+                      {% for field in form %}
+                        {% if field.type == 'FormField' %}
+                          <div class="d-flex gap-1">
+                            <div class="flex-grow-1 mb-2 mb-sm-0">
+                              {# need to pass class #}
+                              {{ field.product(class='form-select')}}
+                              {# form.prod1(class='form-select') #}
+                            </div>
+                            <div class="mb-2">
+                              {{ field.quantity(class='form-control', type='number', style='width: 4.0rem;') }}
+                            </div>
+                              <div class="mb-2">
+                                {{ field.remove(class='btn btn-danger') }}
+                              </div>
+                          </div>
+
+                        {% endif %}
+                      {% endfor %}
+
+
+                      <div class="mb-3 mt-3">{{ form.notes.label(class='form-label') }} {{ form.notes(class='form-control') }}</div>
+                      <div class="d-flex">
+                        <div class="mb-3 mt-3">{{ form.save_changes(class='btn btn-danger') }}</div>
+                        <div class="mb-3 mt-3 ms-auto">{{ form.discard_changes(class='btn btn-secondary') }}</div>
+                      </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock %}

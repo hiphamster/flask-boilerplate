@@ -1,14 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 from flask_mail import Mail
-from flask_login import LoginManager
+from flask_login import LoginManager, session_protected
 from flask_caching import Cache
 from celery import Celery
 from depot.manager import DepotManager
 from config import DevelopmentConfig, TestingConfig
+from redis import Redis
 
+from flask_session import Session
 from app import util
 
 # from app.controllers import paginate
@@ -32,6 +34,16 @@ def factory(config=DevelopmentConfig):
 
     # load application configuration from config
     app.config.from_object(config)
+
+    # flask-session (SS)
+    flask_session = {
+        'SESSION_TYPE':'redis',
+        #redis://UNAME:PASSWD@HOST:PORT/DB
+        #UNAME => default || empty string
+        'SESSION_REDIS':Redis.from_url(f"redis://:{app.config['REDIS_PASSWORD']}@localhost:6379/0"),
+        'SESSION_PERMANENT': False,
+    }
+    app.config.from_mapping(flask_session)
 
     # initialize cache
     cache_config = {
@@ -70,6 +82,9 @@ def factory(config=DevelopmentConfig):
     # add custom jinja filters
     app.jinja_env.filters['phone_format'] = util.phone_format
     # app.jinja_env.filters['paginate'] = paginate
+
+    server_session = Session(app) # pyright: ignore
+
 
     return app
 
@@ -111,6 +126,10 @@ def register_logging(app) -> None:
 
     # Create a file handler object
     file_handler = RotatingFileHandler('storage/logs/flaskapp.log', maxBytes=16384, backupCount=20)
+
+    # XXX for debugging 
+    file_handler = logging.FileHandler('storage/logs/flaskapp.log')
+    # XXX
 
     # Set the logging level of the file handler object so that it logs INFO and up
     file_handler.setLevel(logging.INFO)
@@ -174,4 +193,5 @@ def register_error_handlers(app) -> None:
             "message": "Internal Server Error"
         }
         return render_template('errors/500.html', **data), 500
+
 

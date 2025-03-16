@@ -18,6 +18,10 @@ class Config(object):
         'pool_size': 10,       # Number of connections to keep open inside the pool
         'max_overflow': 20    # Additional connections allowed above pool_sizef
     }
+    REDIS_PASSWORD = '150000B6QKBfBDd489b63e05f81c31de6a69ab57de855ce781110919f65c076547fc27fbf1653e'
+    # SESSION_REDIS_DB = 0
+
+
 
 
 # Create the development config

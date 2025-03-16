@@ -1,11 +1,15 @@
+from pprint import pformat
 from typing import Optional
 
+import sqlalchemy
 from flask import current_app
 from sqlalchemy import and_, select
 
 from app import db
-from app.models import Order, Contact
 from app.lib import Service
+from app.lib.exceptions import KoalatyException, RecordExistsException
+from app.models import Contact, Order, OrderLine
+
 
 class OrderSvc(Service):
 
@@ -19,6 +23,38 @@ class OrderSvc(Service):
            one product.
         """
         pass
+
+
+    @classmethod
+    def add_order(cls, _order: dict):
+        """_order: session['current_order']"""
+
+        order = cls.Model()
+        order.order_date = _order['order_date'] # pyright: ignore
+        order.contact = _order['contact'] # pyright: ignore
+        order.order_lines = [] # pyright: ignore
+
+        #TODO map _order ordler_line fields to OrderLine properties
+        #TODO merge order_lines if the same product is selected
+
+
+        try:
+            db.session.add(order)
+            db.session.commit()
+            return order
+        except sqlalchemy.exc.IntegrityError as e:
+            current_app.logger.debug(f'IntegrityError: {pformat(e)}')
+            raise RecordExistsException(f'Order exists')
+
+            # print(e.orig.errno) # 1062
+            # print(e.orig.sqlstate) # 23000
+            # print(e.orig.msg)
+
+        except sqlalchemy.exc.DBAPIError as e:
+            current_app.logger.error(f'Database operation failed: {e}')
+            raise KoalatyException('Database error')
+
+
     # select
     #   id,
     #   name

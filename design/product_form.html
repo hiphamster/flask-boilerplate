@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - KoalatyEndeavors</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-expand-md fixed-top bg-body py-3">
+        <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="#"><span style="color: var(--bs-primary);font-weight: bold;">KoalatyEndeavors</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.html" style="color: var(--bs-primary);font-weight: bold;">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact_table.html" style="color: var(--bs-primary);font-weight: bold;">Contacts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order_table.html" style="color: var(--bs-primary);font-weight: bold;">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product_table.html" style="color: var(--bs-primary);font-weight: bold;">Products</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;margin-top: 100px;">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="input-group"><input class="form-control" type="text"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">New product</p>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="mb-3"><label class="form-label" for="first_name-2"><strong>Name</strong></label><input class="form-control" type="text" id="product_name" placeholder="Salmon CS" name="product_name"></div>
+                                        <div class="mb-3"><label class="form-label" for="first_name-1"><strong>Description</strong></label><input class="form-control" type="text" id="product_desc" name="product_desc" placeholder="Cold smoked salmon"></div>
+                                        <div class="mb-3"><label class="form-label" for="first_name-5"><strong>Units</strong></label><select class="form-select" id="product_units">
+                                                <option value="1">lbs</option>
+                                                <option value="2">kg</option>
+                                                <option value="3" selected="">oz</option>
+                                                <option value="4">gm</option>
+                                                <option value="5">each</option>
+                                                <option value="6">%</option>
+                                            </select></div>
+                                        <div class="mb-3"><label class="form-label" for="first_name-3"><strong>Average weight (oz)</strong></label><input class="form-control" type="number" id="avg_weight" name="avg_weight" placeholder="45"></div>
+                                        <div class="mb-3"><label class="form-label" for="first_name-4"><strong>Unit price ($)</strong></label><input class="form-control" type="number" id="unit_price" name="unit_price" placeholder="1.5"></div>
+                                        <div class="mb-3 mt-3"><label class="form-label" for="signature-1"></label><label class="form-label" for="first_name-4"><strong>Notes</strong></label><textarea class="form-control" id="product_notes" rows="4" name="signature"></textarea></div>
+                                        <div class="mb-3 mt-1"><button class="btn btn-primary" id="save_product" type="button">Save Changes!</button></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

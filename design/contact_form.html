@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - KoalatyEndeavors</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-expand-md fixed-top bg-body py-3">
+        <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="#"><span style="color: var(--bs-primary);font-weight: bold;">KoalatyEndeavors</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.html" style="color: var(--bs-primary);font-weight: bold;">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact_table.html" style="color: var(--bs-primary);font-weight: bold;">Contacts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order_table.html" style="color: var(--bs-primary);font-weight: bold;">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product_table.html" style="color: var(--bs-primary);font-weight: bold;">Products</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="wrapper" style="border-top-style: solid;border-top-color: var(--bs-black);">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid" style="max-width: 650px;padding-right: 14px;padding-left: 14px;margin-top: 100px;">
+                    <div class="row mb-2">
+                        <div class="col-xl-12 mb-2">
+                            <div class="input-group"><input class="form-control" type="text" placeholder="Search for..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">New Contact</p>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="flex-fill form-group mb-3"><label class="form-label" style="font-weight: bold;">First name</label><input class="form-control" type="text" id="f_name"></div>
+                                        <div class="flex-fill form-group mb-3"><label class="form-label" style="font-weight: bold;">Last name</label><input class="form-control" type="text" id="l_name"></div>
+                                        <div class="flex-grow-1 form-group mb-3"><label class="form-label" style="font-weight: bold;">Mobile phone</label><input class="form-control" type="text" id="m_phone"></div>
+                                        <div class="flex-grow-1 form-group mb-3"><label class="form-label" style="font-weight: bold;">Email</label><input class="form-control" type="text" id="email"></div>
+                                        <div class="flex-grow-1 form-group mb-3"><label class="form-label" style="font-weight: bold;">Facebook URL</label><input class="form-control" type="text" id="fb_url"></div>
+                                        <div class="flex-grow-1 form-group mb-3"><label class="form-label" style="font-weight: bold;">Street</label><input class="form-control" type="text" id="street"></div>
+                                        <div class="flex-grow-1 form-group mb-3"><label class="form-label" style="font-weight: bold;">City</label><input class="form-control" type="text" id="city"></div>
+                                        <div class="flex-sm-grow-1 form-group mb-3"><label class="form-label" style="font-weight: bold;">State</label><select class="form-select w-100" id="state" name="street">
+                                                <option value="CA" selected="">CA</option>
+                                            </select></div>
+                                        <div class="form-group mb-3"><label class="form-label" style="font-weight: bold;">Zip</label><input class="form-control" type="text" id="zip"></div><label class="form-label" for="first_name-4"><strong>Notes</strong></label>
+                                        <div class="mb-3 mt-3"><textarea class="form-control" id="notes" rows="4" name="signature"></textarea></div>
+                                        <div class="mb-3 mt-1"><button class="btn btn-primary" id="save_contact" type="button">Save Changes!</button></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © KoalatyEndeavors 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

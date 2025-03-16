@@ -1,4 +1,5 @@
 import sqlalchemy
+from sqlalchemy import select
 from flask import current_app
 from app import db
 from app.lib.exceptions import KoalatyException, RecordExistsException
@@ -17,6 +18,21 @@ class ProductSvc(Service):
     def get_by_city(cls, city: str):
         """Return a list of orders for given city"""
         pass
+
+    @classmethod
+    def id_name_list(cls):
+        try:
+            stmt = select(cls.Model.id, cls.Model.name).order_by(cls.Model.name) # pyright: ignore
+            return [(k,v) for (k,v) in db.session.execute(stmt).all()]
+
+        except sqlalchemy.exc.DBAPIError as e:
+            current_app.logger.error(f'Database operation failed: {e}')
+            raise KoalatyException('Database error')
+
+        except Exception as e:
+            current_app.logger.error(f'Operation failed: {e}')
+            raise KoalatyException('Operation failed: {e}')
+
 
     @classmethod
     def add_product(cls, form_data: dict):
